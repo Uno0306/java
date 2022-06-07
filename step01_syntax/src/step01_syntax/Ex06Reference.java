@@ -5,6 +5,8 @@
  */
 package step01_syntax;
 
+import java.util.Arrays;
+
 public class Ex06Reference {
 
 	public static void main(String[] args) {
@@ -37,17 +39,79 @@ public class Ex06Reference {
 		int[] arr4 = new int[3];
 		
 		// 배열값 접근 : index - 0부터 시작
-		System.out.println(arr1[0]);
-		System.out.println(arr1[3]);
-		System.out.println("-----");
+//		System.out.println(arr1[0]);
+//		System.out.println(arr1[3]);
+//		System.out.println("-----");
 		
 		// 배열의 길이 : length
-		System.out.println(arr1.length);
+//		System.out.println(arr1.length);
 		
 		// 배열의 데이터 값?
+//		System.out.println(arr1);
 		
+		// step01
+//		for (int i = 0; i < 3; i++) {
+//			System.out.println(arr1[i]);
+//		}
 		
+		// step02
+//		for (int i = 0; i < arr1.length; i++) {
+//			System.out.println(arr1[i]);
+//		}		
+		
+		// step03
+//		for (int i : arr1) {
+//			System.out.println(arr1[i-1]);
+//		}
+		
+		// 얕은 복사
+//		int[] arr5 = {1, 2, 3};
+//		int[] arr6 = arr5;
+//		
+//		System.out.println(arr6[0]);
+//		System.out.println(arr5[0]);
+//		arr6[0] = 10;
+//		System.out.println(arr6[0]);
+//		System.out.println(arr5[0]);
 
+		
+		// 깊은 복사
+		int[] arr7 = {1, 2, 3};
+		int[] arr8 = new int[arr7.length];
+		for (int i = 0; i < arr7.length; i++) {
+			arr8[i] = arr7[i];
+		}
+//		
+//		System.out.println(arr8[0]);
+//		System.out.println(arr7[0]);
+//		arr8[0] = 10;
+//		System.out.println(arr8[0]);
+//		System.out.println(arr7[0]);
+
+		
+		// etc
+//		int [] arr9 = arr7.clone();
+//		arr9[0] = 10;
+//		System.out.println(arr7[0]);
+//		
+		
+		int[] arr10 = Arrays.copyOf(arr7, arr7.length);
+//		arr10[0] = 10;
+//		System.out.println(arr7[0]);
+
+		
+		// 2차원 배열
+		int[][] arr11 = new int[3][4];
+		/*	arr11 배열의 구조
+		 * [
+		 * 	[ arr11[0][0], arr11[0][1], arr11[0][2] ,arr11[0][3] ],
+		 * 	[ arr11[1][0], arr11[1][1], arr11[1][2] ,arr11[1]3] ],
+		 * 	[ arr11[2][0], arr11[2][1], arr11[2][2] ,arr11[2]3] ]  
+		 * ]
+		 */
+		
+		
+		
 		
 	}
 
