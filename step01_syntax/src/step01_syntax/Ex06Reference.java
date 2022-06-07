@@ -111,6 +111,19 @@ public class Ex06Reference {
 		 */
 		
 		
+		int[][] arr = new int[9][9];
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print((i+1)+"단 : [");
+			for (int j = 0; j < arr.length; j++) {
+				arr[i][j] = (i+1)*(j+1);
+				if((j+1) == arr.length) {
+					System.out.print(arr[i][j]);
+				}else {
+					System.out.print(arr[i][j] + ", ");
+				}
+			}
+			System.out.println("]");
+		}
 		
 		
 	}
