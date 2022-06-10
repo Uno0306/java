@@ -4,6 +4,7 @@ import model.domain.Car;
 
 public class CarFactoryTest {
 
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		// CarFactoryTest
 		CarFactory factory = CarFactory.getInstance();

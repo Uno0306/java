@@ -17,5 +17,4 @@ public class Customer implements Buy, Sell{
 		System.out.println("Customer Order");
 	}
 
-
 }

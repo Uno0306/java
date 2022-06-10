@@ -5,9 +5,9 @@ import controller.StudentController;
 public class StartView {
 	public static void main(String[] args) {
 		System.out.println("=== 모든 검색 ===");
-//		StudentController.request(1);
+		StudentController.request(1);
 		System.out.println("=== 학생 검색 ===");
-//		StudentController.request(2);
+		StudentController.request(2);
 		System.out.println("=== 학생 등록 ===");
 		StudentController.request(3);
 		StudentController.request(1);
