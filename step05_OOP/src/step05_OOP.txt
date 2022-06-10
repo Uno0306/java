@@ -1,0 +1,82 @@
+step05_OOP
+
+[학습]
+1. API(Application Programming Interface)
+   - 라이브러리(Library)
+   - 프로그램 개발을 위해 제공되는 클래스 또는 인터페이스
+   - String, System, ...
+   - java.lang, java.util, java.time 패키지 사용
+   - https://docs.oracle.com/javase/8/docs/api/
+   
+2. 상속(Inheritance) & 다형성(Polymorphism)
+	- 부모가 자식에게 물려주는 행위
+		- 상속하는 클래스
+			: 상위, parent, super, base
+			
+		- 상속받는 클래스
+			: 하위, child, sub, derived
+			
+	- 문법
+	class 상속받는 클래스명 extends 상속하는 클래스 {
+		클래스의 구성요소 중 "변수"와 "메소드"만 상속
+		상속받은 클래스만이 가질 수 있는 변수, 메소드 추가 개발 가능
+	}
+	
+	- 키워드
+	super
+		- 하위 클래스에서 가지는 상위 클래스에 대한 참조 값
+		- super(); : 상위 클래스의 기본 생성자를 호출
+		- 상위클래스 객체의 참조값을 가지므로 메소드 혹은 멤버변수에 접근 가능
+		
+	- 어노테이션 (Annotation) : 자바 소스코드를 컴파일하는 경우 컴파일러에게 특별한 정보를 제공
+		- 종류
+			@Override : 재정의된 메소드
+			@Deprecated : 이후 버전에서는 사용되지 않을 수도 있는 변수, 메소드
+			@SuppressWarnings : 특정 경고 제외
+		
+	- 필요성 : 재사용성(기존의 구현코드를 상속받아서 사용), 확장성(필요한 속성 혹은 기능을 개발)
+		
+	- IS-A 관계에서 상속이 가능하다!
+		- 상위 클래스 : 하위 클래스보다 일반적인 개념(ex. Person)
+		- 하위 클래스 : 상위 클래스보다  구체적인 개념(ex. Customer, Mananger, ...)
+	
+3. 추상 클래스(Abstract Class)
+	- int add(int x, int y); //추상메소드
+	- 추상메소드를 포함하고 있는 클래스
+	- abstract 
+	
+	- 응용 템플릿 메소드 패턴(Template Method Pattern)
+		- 코드의 시나리오를 정의하는 메소드
+		- final로 선언하여 하위 클래스에서는 재정의 할 수 없음
+		- 프레임 워크(Framework)에서 많이 사용하는 설계 패턴
+		- 장점 : 통일화된 사용 방법을 제안 가능
+		
+	- 라이브러리 vs 프레임워크 : 둘 다 도구인데 어떤 차이점이 있나??
+	
+
+4. 인터페이스 (Interface)
+	- interface, implements	
+	- 모든 맴버 변수는 상수로 사용됨 (public static final)
+	- 기본적인 메소드는 추상 메소드로 사용될 (public abstract)
+	
+	- 대규모 프로젝트 진행 시, 표준화된 형태의 개발 가능
+	- 개발 시간 단축
+	
+	- 추상 메소드를 포함 -> 인터페이스를 가져다가 사용하는 곳에서는 반드시 구현 필수	
+	
+	- 자바에서 클래스는 단일 상속만 가능하다!!
+	   	
+	   	
+   	추상클래스 VS 인터페이스	
+   
+   추상클래스 : 하나의 클래스는 하나의 클래스만 상속가능 => 자바의 단일 상속 
+   인터페이스 : 2개이상 Interface 하나의 클래스에서 구현가능 
+   		
+	
+	
+	
+	
+	
+	
+	
+	
