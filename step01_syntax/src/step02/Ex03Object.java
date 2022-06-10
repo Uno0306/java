@@ -23,8 +23,12 @@ class A{
 }
 
 class B{
-	// 맴버변수처럼
+	//멤버변수처럼
+	//멤버변수를 사용하기 위해서는 객체를 생성해야함 
 	A a = new A();
+	String name ="java";
+	int age = 27;
+	
 	B(){
 		System.out.println("Class B");
 	}
