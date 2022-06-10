@@ -1,0 +1,27 @@
+step07_API_Collection
+
+1. 롬복(Lombok)
+	- https://projectlombok.org/
+	- @어노테이션 기반으로 반복되는 소스 코드를 컴파일 과정에서 생성해주는 라이브러리
+	
+2. 컬랙션 프레임워크(Collection Framework)
+	- 개발에 필요한 자료구조(Data Structure)를 구현한 라이브러리
+	- java.util 패키지
+	- 최적화된 알고리즘을 사용하여 개발 소요시간 절약 가능
+	
+	- Collection 인터페이스
+		- List 인터페이스
+			- 객체를 순서에 따라 저장, 관리
+			- 자료구조 리스트의 구현을 위한 인터페이스
+			- 중복 허용
+			- ArrayList, Vector, LinkedList, ...
+		
+		- Set 인터페이스
+			- 유일한 값을 관리
+			- Hashset, Treeset, ...
+			
+	- Map 인터페이스
+		- Key : Value 로 이루어진 객체 관리
+		- Key 중복 불가능
+		- HashMap, TreeMap, ...
+		
