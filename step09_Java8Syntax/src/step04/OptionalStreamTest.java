@@ -101,7 +101,7 @@ public class OptionalStreamTest {
 		Person doheon = new Person("doheon", "isfj");
 		Person minkyu = new Person("minkyu", "enfp");
 		Person yongju = new Person("yongju", "estj");
-		Person yunho = new Person("yunho", "enfp");
+		Person yunho = new Person("younho", "enfp");
 		Person jeongin = new Person("jeongin", "infp");
 		Person hanju = new Person("hanju", "isfp");
 		Person seongjun = new Person("seongjun", "isfp");
@@ -139,6 +139,10 @@ public class OptionalStreamTest {
 		System.out.println("---");
 		personList.stream().filter(p -> (p.getMbti().contains("i") && p.getMbti().contains("j")))
 				.forEach(System.out::println);
+		System.out.println("---");
+		// 정규표현식 사용하여 출력하기
+//		personList.stream().filter(v -> v.getMbti().matches("^i..j$")).forEach(System.out::println);
+		personList.stream().filter(v -> v.getMbti().matches("e.f.")).forEach(System.out::println);
 		System.out.println("---");
 
 	}
