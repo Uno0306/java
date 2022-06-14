@@ -1,0 +1,61 @@
+step09_Java8Syntax
+
+[학습]
+1. Enum(Enumeration) 열거형 상수 집합
+ - 클래스를 상수처럼 사용 가능
+ - 내부 메소드
+ 	- values() - 상수값을 배열 형태로 반환
+ 	- valueOf(String str) - str과 일치하는 instance를 반환
+ 	- ordinary() - 인덱스 반환
+ 
+  - 예시
+  	- 데이터를 타입별로 그룹화
+  		PASS(true, "1", "Y")
+  		FAIL(false, "0", "N")
+  		
+  	- 타입에 따른 연산식 필요
+  		ex) 영수증
+  		ORIGIN("판매금액", origin -> origin),
+  		SUPPLY("공급액", origin -> Math.round(origin.doubleValue()) * 10/11)
+  		
+2. 내부클래스(InnerClass)
+ - 클래스 내부에 선언한 클래스, 중첩 클래스
+ - 다른 외부 클래스에서는 사용할 일이 거의 없는 경우, 그러나 내부적으로는 필요한 경우
+ - 종류 : 인스턴스, 정적(static), 지역(local)(메소드 내부에 정의하는 클래스), 익명
+	
+3. 함수형 프로그래밍과 람다식 ★★★★★
+ - 함수형 프로그래밍 : 순수 함수(매개 변수만을 사용하여 만드는 함수)를 구현 및 호출함으로
+ 				   외부에 부수적인 영향을 주지 않도록 구현하는 방식
+ 	- 함수 내부에서 함수 외부에 있는 변수를 사용하지 않는다는 의미 내포
+ 	
+ - 람다식
+ 	- 익명 함수 만들기
+
+ - 함수형 인터페이스
+ 	- @FunctionInterface
+ 	- 람다식을 선언하기 위한 인터페이스
+ 	- 익명 함수와 매개 변수 만으로 구현되기 때문에 반드시 단 하나의 메소드만 선언 해야 함
+ 	
+4. Optional
+ - Null 혹은 Nullable한 값을 저장할 때 사용하는 Wrapper클래스
+ - 참조하여도 NPE가 발생하지 않도록 처리
+ 
+ - 고려 사항
+ 	- Optional에 Null은 직접 할당하지 말 것
+ 	- 단순히 값을 얻으려고 한다면 Optional 사용에 대한 고려 필수
+ 	- 생성자, 메소드 파라미터 등으로 Optional 사용은 하지 말 것
+ 	- Collection의 경우에는 차라리 빈 Collection 을 넘겨 줄 것
+ 		- ex)
+ 			public List<Student> getStudentList(){
+ 				List<Student> studentList = ...; // null?
+ 				
+ 				return Optional.ofNullable(studentList); <- 이 딴식으로 만들지 마라
+ 				return studentList == null ? Collection.emptyList() : studentList; <- 차라리 이렇게 써라
+ 			}
+ 			
+5. Stream
+ - 배열이나 Collection 저장 요소를 하나씩 참조해서 람다식으로 처리 할 수 있도록 해주는 반복자
+ - 구조 및 사용법
+ 	- step01 : Stream 생성
+ 	- step02 : 중개연산, Filtering, Mapping 등으로 원하는 결과를 만드는 중간 과정
+ 	- step03 : 최종 연산, 최종적으로 결과를 만드는 과정
