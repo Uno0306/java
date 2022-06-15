@@ -34,6 +34,27 @@ public class BTProjectDAO {
 		return false;
 	}
 
+	// 프로젝트 아이디로 프로젝트 정보 수정
+	public static boolean updateBTProjectcontent(String btProjectId, String btProjectContent) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBUtil.getConnection();
+			
+			pstmt = con.prepareStatement("update bt_project set bt_content=? where bt_project_id=?");
+			pstmt.setString(1, btProjectContent);
+			pstmt.setString(2, btProjectId);
+			
+			int result = pstmt.executeUpdate();
+			if (result == 1) {
+				return true;
+			}
+		} finally {
+			DBUtil.close(con, pstmt);
+		}
+		return false;
+	}
+
 	// 프로젝트 아이디로 헌혈자 정보 수정
 	public static boolean updateBTProjectdonor(String btProjectId, String donorId) throws SQLException {
 		Connection con = null;
@@ -94,8 +115,8 @@ public class BTProjectDAO {
 		return false;
 	}
 
-	// 프로젝트 이름으로 프로젝트 검색
-	public static BTProjectDTO getBTProject(String btProjectName) throws SQLException {
+	// 프로젝트 ID로 프로젝트 검색
+	public static BTProjectDTO getBTProject(String btProjectId) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -103,12 +124,12 @@ public class BTProjectDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("select * from bt_project where bt_project_name=?");
-			pstmt.setString(1, btProjectName);
+			pstmt = con.prepareStatement("select * from bt_project where bt_project_id=?");
+			pstmt.setString(1, btProjectId);
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
-				blood_transfusionUser = new BTProjectDTO(rset.getString(2), rset.getString(3), rset.getString(4),
-						rset.getString(5), rset.getString(6));
+				blood_transfusionUser = new BTProjectDTO(rset.getString(1), rset.getString(2), rset.getString(3),
+						rset.getString(4), rset.getString(5));
 			}
 		} finally {
 			DBUtil.close(con, pstmt, rset);

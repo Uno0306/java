@@ -51,7 +51,6 @@ public class DeptDAO {
 		return allData;
 	}
 	
-	
 	// 부서 이름 검색 메소드
 	public static DeptDTO getDept(String dname) throws SQLException{
 		// ver1
@@ -75,7 +74,6 @@ public class DeptDAO {
 		}
 		return data;
 	}
-	
 	
 	// 부서 생성 메소드
 	// Query : insert into dept values(deptno, dname, loc); -> pstmt
@@ -148,9 +146,7 @@ public class DeptDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		ArrayList<EmpDTO> allEmpData = null;
 		ArrayList<DeptDTO> allData = null;
-//		List<String> strList = new ArrayList<>();
 		String query = "";
 		query += "SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno, d.dname ";
 		query += "FROM emp e JOIN dept d ";
@@ -163,13 +159,8 @@ public class DeptDAO {
 			pstmt.setString(1, dname);
 			rset = pstmt.executeQuery();
 			
-//			allEmpData = new ArrayList<EmpDTO>();
 			allData = new ArrayList<DeptDTO>();
 			while(rset.next()) {
-//				allEmpData.add(new EmpDTO(rset.getInt("empno"), rset.getString("ename"), 
-//						rset.getString("job"), rset.getInt("mgr"), 
-//						rset.getDate("hiredate"), rset.getFloat("sal"), 
-//						rset.getFloat("comm"), rset.getInt("deptno")));
 				EmpDTO e = new EmpDTO();
 				e.setEmpno(rset.getInt("empno"));
 				e.setEname(rset.getString("ename"));
@@ -182,8 +173,6 @@ public class DeptDAO {
 				
 				DeptDTO d = new DeptDTO(rset.getString("dname"), e);
 				allData.add(d);
-//				allData.add(new DeptDTO(rset.getString("dname")));
-//				allData.addAll(allData2);
 			}
 		}finally {
 			DButil.close(rset, pstmt, conn);

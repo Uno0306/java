@@ -32,9 +32,12 @@ public class BTService {
 	}
 	
 	//BTProject id로 검색
-	public BTProjectDTO getBTProject(String btProjectName) throws SQLException, NotExistException{
-		
-		return null;
+	public BTProjectDTO getBTProject(String btProjectId) throws SQLException, NotExistException{
+		BTProjectDTO btProject = BTProjectDAO.getBTProject(btProjectId);
+		if (btProject == null) {
+			throw new NotExistException();
+		}
+		return btProject;
 	}
 	
 	//새로운 BTProject 저장
@@ -44,8 +47,9 @@ public class BTService {
 	
 	//기존 BTProject 수정
 	public boolean updateBTProject(String btProjectId, String btProjectContent) throws SQLException, NotExistException{
-		notExistBTProject(btProjectContent);
-		return false;
+		notExistBTProject(btProjectId);
+		boolean check = BTProjectDAO.updateBTProjectcontent(btProjectId, btProjectContent);
+		return check;
 	}
 	
 	//BTProject 삭제
@@ -59,7 +63,7 @@ public class BTService {
 	public void notExistDonor(String donorId) throws NotExistException, SQLException {
 		DonorDTO Donor = DonorDAO.getDonor(donorId);
 		if (Donor == null) {
-			throw new NotExistException("검색한  헌혈자가 미 존재합니다.");
+			throw new NotExistException();
 		}
 	}
 
@@ -93,7 +97,7 @@ public class BTService {
 	public static void notExistRecipient(String recipientId) throws NotExistException, SQLException {
 		RecipientDTO recipient = RecipientDAO.getRecipient(recipientId);
 		if (recipient == null) {
-			throw new NotExistException("검색한  수혈자가 미 존재합니다.");
+			throw new NotExistException();
 		}
 	}
 
@@ -101,7 +105,7 @@ public class BTService {
 		return RecipientDAO.addRecipient(recipient);
 	}
 
-	public static boolean updateRecipient(String recipientId, String purposeTransfusion)
+	public boolean updateRecipient(String recipientId, String purposeTransfusion)
 			throws SQLException, NotExistException {
 		notExistRecipient(recipientId);
 		return RecipientDAO.updateRecipient(recipientId, purposeTransfusion);
