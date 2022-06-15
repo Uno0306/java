@@ -16,7 +16,7 @@ public class BTProjectDAO {
 		PreparedStatement pstmt = null;
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("insert into blood_transfusion_project values(?, ?, ?, ?, ?)");
+			pstmt = con.prepareStatement("insert into bt_project values(?, ?, ?, ?, ?)");
 			pstmt.setString(1, btProject.getBtProjectName());
 			pstmt.setString(2, btProject.getBtProjectId());
 			pstmt.setString(3, btProject.getDonorId());
@@ -97,14 +97,14 @@ public class BTProjectDAO {
 		return false;
 	}
 
-	// 프로젝트 이름으로 프로젝트 삭제
-	public static boolean deleteBTProject(String btProjectName) throws SQLException {
+	// 프로젝트 ID로 프로젝트 삭제
+	public static boolean deleteBTProject(String btProjectId) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("delete from bt_project where bt_project_name=?");
-			pstmt.setString(1, btProjectName);
+			pstmt = con.prepareStatement("delete from bt_project where bt_project_id=?");
+			pstmt.setString(1, btProjectId);
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
 				return true;

@@ -9,6 +9,7 @@ import blood.transfusion.dto.RecipientDTO;
 
 public class RunningEndView {
 	static BTController controller = BTController.getInstance();
+	
 	//모든 프로젝트 출력
 	public static void projectListView(ArrayList allProject){
 		int length = allProject.size();
@@ -59,9 +60,6 @@ public class RunningEndView {
 	public static void updateRecepientView(RecipientDTO recipient) {
 		System.out.println(recipient);
 	}
-	
-	
-	
 	
 	// 모든 DTO 정보 출력하는 메소드
 	public static void allView(Object object){

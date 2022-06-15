@@ -40,9 +40,9 @@ public class BTService {
 		return btProject;
 	}
 	
-	//새로운 BTProject 저장
-	public boolean addBTProject(BTProjectDTO btProject) throws SQLException{
-		return false;
+	// 새로운 BTProject 저장
+	public boolean addBTProject(BTProjectDTO btProject) throws SQLException {
+		return BTProjectDAO.addBTProject(btProject);
 	}
 	
 	//기존 BTProject 수정
@@ -52,13 +52,17 @@ public class BTService {
 		return check;
 	}
 	
-	//BTProject 삭제
-	public boolean deleteBTProject(String btProjectId) throws SQLException, NotExistException{
-		notExistBTProject(btProjectId);
+	// BTProject 삭제
+	public boolean deleteBTProject(String btProjectId) throws SQLException, NotExistException {
+		boolean check = BTProjectDAO.deleteBTProject(btProjectId);
+		if (check == false) {
+			notExistBTProject(btProjectId);
+		} else {
+			return check;
+		}
 		return false;
 	}
-	
-	
+
 	//Donor - CRUD
 	public void notExistDonor(String donorId) throws NotExistException, SQLException {
 		DonorDTO Donor = DonorDAO.getDonor(donorId);
@@ -84,7 +88,7 @@ public class BTService {
 	public DonorDTO getDonor(String donorId) throws SQLException, NotExistException {
 		DonorDTO donor = DonorDAO.getDonor(donorId);
 		if (donor == null) {
-			throw new NotExistException("검색한 헌혈자가 미 존재합니다.");
+			throw new NotExistException();
 		}
 		return donor;
 	}

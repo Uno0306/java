@@ -3,6 +3,7 @@ package blood.transfusion.contoller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import blood.transfusion.dto.BTProjectDTO;
 //import blood.transfusion.dto.BTProjectDTO;
 import blood.transfusion.dto.DonorDTO;
 import blood.transfusion.dto.RecipientDTO;
@@ -13,6 +14,7 @@ import blood.transfusion.model.DonorDAO;
 import blood.transfusion.model.RecipientDAO;
 import blood.transfusion.view.RunningEndView;
 //import blood.transfusion.view.RunningSuccessView;
+import blood.transfusion.view.RunningSuccessView;
 
 public class BTController {
 	private static BTController instance = new BTController();
@@ -28,7 +30,7 @@ public class BTController {
 	public void allBTProjects(){
 		try{
 			RunningEndView.projectListView(service.getAllBTProjects());
-//			RunningSuccessView.showSuccess("모든 프로젝트 검색 성공");
+			RunningSuccessView.showSuccess("모든 프로젝트 검색 성공");
 		}catch(SQLException s){
 			s.printStackTrace();
 			RunningEndView.showError("모든 프로젝트 검색시 에러 발생");
@@ -117,7 +119,7 @@ public class BTController {
 		ArrayList<DonorDTO> allProject = null;
 		try{
 			RunningEndView.projectListView(DonorDAO.getAllDonors());
-//			RunningSuccessView.showSuccess("모든  헌혈자 검색 성공");
+			RunningSuccessView.showSuccess("모든  헌혈자 검색 성공");
 		}catch(SQLException s){
 			s.printStackTrace();
 			RunningEndView.showError("모든  헌혈자 검색시 에러 발생");
@@ -130,7 +132,7 @@ public class BTController {
 		ArrayList<RecipientDTO> allProject = null;
 		try{
 			RunningEndView.projectListView(RecipientDAO.getAllRecipients());
-//			RunningSuccessView.showSuccess("모든  수혈자 검색 성공");
+			RunningSuccessView.showSuccess("모든  수혈자 검색 성공");
 		}catch(SQLException s){
 			s.printStackTrace();
 			RunningEndView.showError("모든  수혈자 검색시 에러 발생");
