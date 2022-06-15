@@ -1,66 +1,19 @@
 package model;
 
+import java.util.List;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import model.domain.DeptDTO;
 import model.domain.EmpDTO;
 import util.DButil;
 
 public class DeptDAO {
-
-	// step01 *
-	// Driver loading
-//	static {
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-//-----------------------------------------------------------------------------------------------------------------------------------//
-	
-	// ver1 - fail
-//	public static Statement dbConnection(Statement stmt) throws SQLException{
-	// ver2
-//	public static Statement dbConnection() throws SQLException{
-	// ver3
-//	public static ResultSet dbConnection(Connection conn, Statement stmt, ResultSet rset, String query) throws SQLException{
-	public static ResultSet dbConnection(Connection conn, PreparedStatement pstmt, ResultSet rset, String query) throws SQLException{
-		// verd1
-		// Connection conn = null;
-		//Statement stmt = null;
-		try {
-			// verd2
-			// conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
-			// stmt = conn.createStatement();
-			// rset = stmt.executeQuery(query);
-			
-			// verd3
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
-			pstmt = conn.prepareStatement(query);
-			rset = pstmt.executeQuery(query);
-			
-			return rset;
-		}finally {
-		}
-	}
-	
-	public static void dbClose(Connection conn, Statement stmt, ResultSet rset) throws SQLException{
-		try {
-		}finally {
-			rset.close();
-			stmt.close();
-			conn.close();
-		}
-	}
-//-----------------------------------------------------------------------------------------------------------------------------------//	
-	
 	
 	// 모든 부서 검색 메소드
 	// Query : "SELECT * FROM dept"
@@ -71,11 +24,8 @@ public class DeptDAO {
 		ArrayList<DeptDTO> allData = null;
 		
 		try {
-			// step02 *
-			// DB Connection
-			// ipAddress, DB name, Account name/password, ...
-//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
 			conn = DButil.getConnection();
+			
 			// step03
 			// SQL 문장 객체 
 			stmt = conn.createStatement();
@@ -96,9 +46,6 @@ public class DeptDAO {
 			// step06 *
 			// DB 종료
 		} finally {
-//			rset.close();
-//			stmt.close();
-//			conn.close();
 			DButil.close(rset, stmt, conn);
 		}
 		return allData;
@@ -109,37 +56,13 @@ public class DeptDAO {
 	public static DeptDTO getDept(String dname) throws SQLException{
 		// ver1
 		Connection conn = null;
-//		Statement stmt = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		DeptDTO data = null;
-		
-		// verd2
-		// String query = "SELECT * FROM dept WHERE dname = '" + dname + "'";
-		
-		// verd3/ver6
 		String query = "SELECT * FROM dept WHERE dname = ?";
 		
 		try {
-			// ver1
-			// conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
-			// stmt = conn.createStatement();
-			// rset = stmt.executeQuery("SELECT * FROM dept WHERE dname = " + dname);	
-			
-			// ver2
-			// rset = dbConnection().executeQuery("SELECT * FROM dept WHERE dname = '" + dname + "'");	
-			
-			// ver3
-			// rset = dbConnection().executeQuery(query);	
-			
-			// ver4
-			// rset = dbConnection(conn, pstmt, rset, query);	
-			
-			// ver5 - fail
-			// rset = dbConnection(stmt).executeQuery("SELECT * FROM dept WHERE dname = '" + dname + "'");	
-
-			// ver6
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
+			conn = DButil.getConnection();
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, dname);
 			rset = pstmt.executeQuery();
@@ -147,26 +70,9 @@ public class DeptDAO {
 			while(rset.next()) {
 				data = new DeptDTO(rset.getInt("deptno"), rset.getString("dname"), rset.getString("loc"));
 			}
-			
 		}finally {
-			// ver1
-//			rset.close();
-//			stmt.close();
-//			conn.close();
-			
-			// ver2
-//			rset.close();
-			
-			// ver3 - fail
-//			dbClose(conn, stmt, rset);
-			
-			// ver6
-			rset.close();
-			pstmt.close();
-			conn.close();
-			
+			DButil.close(rset, pstmt, conn);
 		}
-		
 		return data;
 	}
 	
@@ -177,7 +83,7 @@ public class DeptDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
+			conn = DButil.getConnection();
 			pstmt = conn.prepareStatement("INSERT INTO dept VALUES(?, ?, ?)");
 			
 			pstmt.setInt(1, dept.getDeptno());
@@ -188,12 +94,9 @@ public class DeptDAO {
 			if(r != 0) {
 				return true;
 			}
-			
 		}finally {
-			pstmt.close();
-			conn.close();
+			DButil.close(pstmt, conn);
 		}
-		
 		return false;
 	}
 	
@@ -203,7 +106,7 @@ public class DeptDAO {
 	    PreparedStatement pstmt = null;
 
 	    try {
-	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
+	        conn = DButil.getConnection();
 	        pstmt = conn.prepareStatement("update dept set loc = ? where deptno = ?");
 
 	        pstmt.setString(1, loc);
@@ -213,12 +116,9 @@ public class DeptDAO {
 	        if(r != 0) {
 	            return true;
 	        }
-
 	    } finally {
-	        pstmt.close();
-	        conn.close();
+	    	DButil.close(pstmt, conn);
 	    }
-
 	    return false;
 	}
 	
@@ -228,7 +128,7 @@ public class DeptDAO {
 	    PreparedStatement pstmt = null;
 
 	    try {
-	        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
+	        conn = DButil.getConnection();
 	        pstmt = conn.prepareStatement("delete from dept where deptno = ?");
 
 	        pstmt.setInt(1, deptno);
@@ -237,44 +137,56 @@ public class DeptDAO {
 	        if(r != 0) {
 	            return true;
 	        }
-
 	    } finally {
-	        pstmt.close();
-	        conn.close();
+	    	DButil.close(pstmt, conn);
 	    }
-
 	    return false;
 	}
 
 	// 부서명으로 사원 출력
-	public static ArrayList<EmpDTO> getDeptEmp(String dname) throws SQLException{
+	public static ArrayList<DeptDTO> getDeptEmp(String dname) throws SQLException{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<EmpDTO> allData = null;
+//		ArrayList<EmpDTO> allEmpData = null;
+		ArrayList<DeptDTO> allData = null;
+//		List<String> strList = new ArrayList<>();
 		String query = "";
-		query += "SELECT * ";
+		query += "SELECT e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno, d.dname ";
 		query += "FROM emp e JOIN dept d ";
 		query += "ON e.deptno = d.deptno ";
-		query += "WHERE dname = ?";
+		query += "WHERE d.dname = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scott", "scott", "tiger");
+			conn = DButil.getConnection();
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, dname);
 			rset = pstmt.executeQuery();
 			
-			allData = new ArrayList<EmpDTO>();
+//			allEmpData = new ArrayList<EmpDTO>();
+			allData = new ArrayList<DeptDTO>();
 			while(rset.next()) {
-				allData.add(new EmpDTO(rset.getInt("empno"), rset.getString("ename"), 
-						rset.getString("job"), rset.getInt("mgr"), 
-						rset.getDate("hiredate"), rset.getFloat("sal"), 
-						rset.getFloat("comm"), rset.getInt("deptno")));
+//				allEmpData.add(new EmpDTO(rset.getInt("empno"), rset.getString("ename"), 
+//						rset.getString("job"), rset.getInt("mgr"), 
+//						rset.getDate("hiredate"), rset.getFloat("sal"), 
+//						rset.getFloat("comm"), rset.getInt("deptno")));
+				EmpDTO e = new EmpDTO();
+				e.setEmpno(rset.getInt("empno"));
+				e.setEname(rset.getString("ename"));
+				e.setJob(rset.getString("job"));
+				e.setMgr(rset.getInt("mgr"));
+				e.setHiredate(rset.getDate("hiredate"));
+				e.setSal(rset.getFloat("sal"));
+				e.setComm(rset.getFloat("comm"));
+				e.setDeptno(rset.getInt("deptno"));
+				
+				DeptDTO d = new DeptDTO(rset.getString("dname"), e);
+				allData.add(d);
+//				allData.add(new DeptDTO(rset.getString("dname")));
+//				allData.addAll(allData2);
 			}
 		}finally {
-			rset.close();
-			pstmt.close();
-			conn.close();
+			DButil.close(rset, pstmt, conn);
 		}
 		return allData;
 	}
@@ -309,7 +221,7 @@ public class DeptDAO {
 			System.out.println();
 			
 			// (부서 명으로) 검색한 해당 사원 출력
-			for(EmpDTO emp : getDeptEmp("SALES")) {
+			for(DeptDTO emp : getDeptEmp("SALES")) {
 				System.out.println(emp);
 			}
 		} catch (SQLException e) {

@@ -2,7 +2,6 @@ package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -46,15 +45,11 @@ public class DButil {
 			e.printStackTrace();
 		}
 	}
-	public static void close(ResultSet rset, PreparedStatement pstmt, Connection conn) {
+	public static void close(Statement stmt, Connection conn) {
 		try {
-			if(rset != null) {
-				rset.close();
-				rset = null;
-			}
-			if(pstmt != null) {
-				pstmt.close();
-				pstmt = null;
+			if(stmt != null) {
+				stmt.close();
+				stmt = null;
 			}
 			if(conn != null) {
 				conn.close();
@@ -64,4 +59,7 @@ public class DButil {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 }

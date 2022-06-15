@@ -4,6 +4,7 @@ public class DeptDTO {
 	private int deptno;
 	private String dname;
 	private String loc;
+	private EmpDTO empDTO;
 	
 	public int getDeptno() {
 		return deptno;
@@ -23,8 +24,20 @@ public class DeptDTO {
 	public void setLoc(String loc) {
 		this.loc = loc;
 	}
+	public EmpDTO getEmpDTO() {
+		return empDTO;
+	}
+	public void setEmpDTO(EmpDTO empDTO) {
+		this.empDTO = empDTO;
+	}
 	
 	public DeptDTO() {}
+	
+	public DeptDTO(String dname, EmpDTO empDTO) {
+		super();
+		this.dname = dname;
+		this.empDTO = empDTO;
+	}
 	
 	public DeptDTO(int deptno, String dname, String loc) {
 		super();
@@ -32,12 +45,25 @@ public class DeptDTO {
 		this.dname = dname;
 		this.loc = loc;
 	}
-	
-	@Override
-	public String toString() {
-		return "DeptDTO [deptno = " + deptno + ", dname = " + dname + ", loc = " + loc + "]";
+
+	public DeptDTO(int deptno, String dname, String loc, EmpDTO empDTO) {
+		super();
+		this.deptno = deptno;
+		this.dname = dname;
+		this.loc = loc;
+		this.empDTO = empDTO;
 	}
 	
+	@Override
+	// 출력용
+//	public String toString() {
+//		return "DeptDTO [deptno = " + deptno + ", dname = " + dname + ", loc = " + loc + "]" + empDTO;
+//	}
+	// join용
+	public String toString() {
+		return "DeptDTO [dname = " + dname + "], " + empDTO;
+	}
+		
 	
 	
 	
