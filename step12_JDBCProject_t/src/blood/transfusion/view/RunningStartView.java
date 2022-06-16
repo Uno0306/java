@@ -22,17 +22,17 @@ public class RunningStartView {
 		// project 테이블에서 fk)/ 기존은 냅둬도된다.
 
 		System.out.println("=====새로운 프로젝트 저장=====");
-		// 추가
+		// 새로운 수혈자, 헌혈자 추가
 		controller.addAllBTProject(new DonorDTO("donor4", "헌혈4", 43, "M", "AB-", "취미"),
 				new RecipientDTO("Recipient4", "수혈4", 43, "M", "AB-", "취미"),
 				new BTProjectDTO("A-", "bt4", "donor4", "recipient4", "AB-형간의 수혈"));
 
-		// 정보 가져와 추가
-		controller.addAllBTProject(new BTProjectDTO("A-", "bt5", "donor3", "recipient2", "O-B형간의 수"));
+		// DB에 있는 수혈자,헌혈자 정보 가져와 추가
+//		controller.addAllBTProject(new BTProjectDTO("A-", "bt5", "donor3", "recipient2", "O-B형간의 수혈"));
 		System.out.println();
 		
 		System.out.println("=====프로젝트 정보 수정=====");
-		controller.updateBTProject("bt1", "A-형간의 수혈");
+		controller.updateBTProject("bt5", "O-B형간의 수혈");
 		System.out.println();
 		
 		System.out.println("=====헌혈자 정보 수정=====");
@@ -48,6 +48,10 @@ public class RunningStartView {
 //		controller.deleteBTprojectRecive("bt5");
 //		controller.deleteBTprojectRecive("asds");
 		System.out.println();
+		
+		controller.deleteDonorRecive("donor1");
+		controller.deleteRecipientRecive("recipient1");
+		
 		
 		
 		System.out.println("=====모든 헌혈자 검색=====");

@@ -1,4 +1,4 @@
-package blood.transfusion.model;
+package blood.transfusion.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
