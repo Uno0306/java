@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import blood.transfusion.dao.DonorDAO;
 import blood.transfusion.dto.DonorDTO;
 import blood.transfusion.exception.NotExistException;
+import blood.transfusion.model.DonorInterface;
 
-public class DonorService {
+public class DonorService implements DonorInterface{
 			
 	private static DonorService instance = new DonorService();
 	

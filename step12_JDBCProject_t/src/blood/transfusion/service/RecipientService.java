@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import blood.transfusion.dao.RecipientDAO;
 import blood.transfusion.dto.RecipientDTO;
 import blood.transfusion.exception.NotExistException;
+import blood.transfusion.model.RecipientInterface;
 
-public class RecipientService {
+public class RecipientService implements RecipientInterface{
 			
 	private static RecipientService instance = new RecipientService();
 	
@@ -18,14 +19,14 @@ public class RecipientService {
 	}
 	
 	// Recipient - CRUD
-	public static void notExistRecipient(String recipientId) throws NotExistException, SQLException {
+	public void notExistRecipient(String recipientId) throws NotExistException, SQLException {
 		RecipientDTO recipient = RecipientDAO.getRecipient(recipientId);
 		if (recipient == null) {
 			throw new NotExistException();
 		}
 	}
 
-	public static boolean addRecipient(RecipientDTO recipient) throws SQLException, NotExistException {
+	public boolean addRecipient(RecipientDTO recipient) throws SQLException, NotExistException {
 		if(("").equals(recipient.getId())) {
 			throw new NotExistException();
 		}
@@ -43,11 +44,11 @@ public class RecipientService {
 		return RecipientDAO.deleteRecipient(recipientId);
 	}
 
-	public static RecipientDTO getRecipient(String recipientId) throws SQLException {
+	public RecipientDTO getRecipient(String recipientId) throws SQLException {
 		return RecipientDAO.getRecipient(recipientId);
 	}
 
-	public static ArrayList<RecipientDTO> getAllRecipients() throws SQLException {
+	public ArrayList<RecipientDTO> getAllRecipients() throws SQLException {
 		return RecipientDAO.getAllRecipients();
 	}
 }

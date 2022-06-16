@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import blood.transfusion.dao.BTProjectDAO;
 import blood.transfusion.dto.BTProjectDTO;
 import blood.transfusion.exception.NotExistException;
+import blood.transfusion.model.BTProjectInterface;
 
-public class BTService {
+public class BTService implements BTProjectInterface{
 			
 	private static BTService instance = new BTService();
 	

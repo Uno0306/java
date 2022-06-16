@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import model.domain.Dept;
 import model.domain.DeptDTO;
 import model.domain.EmpDTO;
 import util.DButil;
@@ -77,16 +78,19 @@ public class DeptDAO {
 	
 	// 부서 생성 메소드
 	// Query : insert into dept values(deptno, dname, loc); -> pstmt
-	public static boolean insertDept(DeptDTO dept) throws SQLException{
+//	public static boolean insertDept(DeptDTO dept) throws SQLException{
+	public static boolean insertDept(Dept deptBuilder) throws SQLException{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DButil.getConnection();
 			pstmt = conn.prepareStatement("INSERT INTO dept VALUES(?, ?, ?)");
-			
-			pstmt.setInt(1, dept.getDeptno());
-			pstmt.setString(2, dept.getDname());
-			pstmt.setString(3, dept.getLoc());
+//			pstmt.setInt(1, dept.getDeptno());
+//			pstmt.setString(2, dept.getDname());
+//			pstmt.setString(3, dept.getLoc());
+			pstmt.setInt(1, deptBuilder.getDeptno());
+			pstmt.setString(2, deptBuilder.getDname());
+			pstmt.setString(3, deptBuilder.getLoc());
 			
 			int r = pstmt.executeUpdate();
 			if(r != 0) {
@@ -197,7 +201,13 @@ public class DeptDAO {
 			
 			// 부서 생성
 			// boolean insertDept(Dept dept)
-			System.out.println(insertDept(new DeptDTO(50, "PROGRAMMING", "BUSAN")));
+//			System.out.println(insertDept(new DeptDTO(50, "PROGRAMMING", "BUSAN")));
+			Dept deptBuilder = new Dept.Builder()
+					.deptno(50)
+					.dname("PROGRAMMING")
+					.loc("BUSAN")
+					.build();
+			System.out.println(insertDept(deptBuilder));
 			
 			// (부서 번호로) 검색한 해당 부서의 위치 수정
 			// updateDept(50, "SEOUL") -> 50 BUSAN -> SEOUL
@@ -213,6 +223,9 @@ public class DeptDAO {
 			for(DeptDTO emp : getDeptEmp("SALES")) {
 				System.out.println(emp);
 			}
+			
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
