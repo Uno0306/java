@@ -1,0 +1,41 @@
+step13_Thread
+
+[학습]
+1. 스레드(Thread)
+	- 순차적으로 실행할 코드의 흐름
+	- 하나의 스레드는 하나의 코드 흐름
+	
+	cf. 프로세스(Process)
+		- 운영체제에서 실행중인 하나의 프로그램
+		- 멀티 태스킹
+		
+	- 생성
+		- Thread 클래스
+		- Runnable 인터페이스
+		
+	- 실행
+		- 동시성(Concurrency) : 하나의 코어 - 멀티 스레드
+		- 병렬성(Parallelism) : 멀티코어 - 개별 스레드
+		
+	- 스케쥴링 : 스레드의 순서 지정	
+		- 우선순위(Priority) : 우선순위 할당 - 우선순위가 높다 - 10(기본 5), 개발자 제어 가능
+		- 순환할당(Round-robin) : 시간 할당 - 정해진 시간만큼, 개발자 제어 불가능
+		
+2. 동기화(Synchronization)	
+	- 여러 스레드가 자원 하나를 공유시, 나머지 스레드의 접근 제한
+
+	- 문법
+		public synchronized void method(){
+			하나의 스레드만 실행 영역 : 임계영역(critical section);
+		};
+		
+		synchronized {};
+		
+3. 상태(State) - Thread.State 열거 상수
+	- 객체 생성(NEW) : 객체만 생성
+	- 실행 대기(RUNNABLE) : start() -> , 실행 상태로 변경 가능한 상태
+	- 종료 상태(TERMINATED) : run() 메소드 종료 상태
+	- 일시 정지 상태
+		TIMED_WAITING : 주어진 시간동안 대기
+		WAITING : 다른 스레드의 통지 대기
+		BLOCKED : 객체의 락이 풀릴때까지 대기
